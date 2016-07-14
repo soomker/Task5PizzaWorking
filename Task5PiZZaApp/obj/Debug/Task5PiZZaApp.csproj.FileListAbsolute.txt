@@ -1,0 +1,6 @@
+D:\CsharpStudy\SitecoreTasks\Task5\Task5Pizza-master\Task5PiZZaApp\bin\Debug\Task5PiZZaApp.exe.config
+D:\CsharpStudy\SitecoreTasks\Task5\Task5Pizza-master\Task5PiZZaApp\obj\Debug\Task5PiZZaApp.csprojResolveAssemblyReference.cache
+D:\CsharpStudy\SitecoreTasks\Task5\Task5Pizza-master\Task5PiZZaApp\bin\Debug\Task5PiZZaApp.exe
+D:\CsharpStudy\SitecoreTasks\Task5\Task5Pizza-master\Task5PiZZaApp\bin\Debug\Task5PiZZaApp.pdb
+D:\CsharpStudy\SitecoreTasks\Task5\Task5Pizza-master\Task5PiZZaApp\obj\Debug\Task5PiZZaApp.exe
+D:\CsharpStudy\SitecoreTasks\Task5\Task5Pizza-master\Task5PiZZaApp\obj\Debug\Task5PiZZaApp.pdb
