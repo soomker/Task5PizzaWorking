@@ -14,7 +14,7 @@ namespace Task5PiZZaApp
             Kitchen kitch = new Kitchen();
             List<Piece> pizzaPieces = kitch.Pizza.GetPieces();
             while (pizzaPieces.Count>0)
-            kitch.EatPizza(ref pizzaPieces);
+            kitch.StartEatPizza(ref pizzaPieces);
             Console.ReadLine();
         }
     }

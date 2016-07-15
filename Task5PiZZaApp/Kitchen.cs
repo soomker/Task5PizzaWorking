@@ -28,7 +28,7 @@ namespace Task5PiZZaApp
             strBuild = new StringBuilder();
         }
 
-        public void EatPizza(ref List<Piece> piecesOfPizza)
+        public void StartEatPizza(ref List<Piece> piecesOfPizza)
         {
             foreach (Engineer eng in engineers)
             {
