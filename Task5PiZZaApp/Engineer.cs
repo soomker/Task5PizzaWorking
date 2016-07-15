@@ -15,8 +15,6 @@ namespace Task5PiZZaApp
 
         public delegate void WriteToFile(string msg);
 
-        public int PiecesLeft { get; private set; }
-
         public WriteToFile wToFile;
         private Random rnd;
 
@@ -31,6 +29,7 @@ namespace Task5PiZZaApp
         {
             GetPizza((List<Piece>)list);
         }
+
         private void GetPizza(List<Piece> listOfPieces)
         {
             Console.ForegroundColor = ConsoleColor.Gray;
