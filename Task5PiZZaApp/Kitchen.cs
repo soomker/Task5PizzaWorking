@@ -26,13 +26,17 @@ namespace Task5PiZZaApp
             eng3 = new Engineer("Aria", "Stark");
             engineers = new List<Engineer> { eng1, eng2, eng3 };
             strBuild = new StringBuilder();
+
+            foreach (Engineer eng in engineers)
+            {
+                eng.wToFile += LogToFile;
+            }
         }
 
         public void StartEatPizza(ref List<Piece> piecesOfPizza)
         {
             foreach (Engineer eng in engineers)
             {
-                eng.wToFile += LogToFile;
                 Thread thr = new Thread(new ParameterizedThreadStart(eng.GrapPizza));
                 thr.Start(piecesOfPizza);
                 thr.Join();
