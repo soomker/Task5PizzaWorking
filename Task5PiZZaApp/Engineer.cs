@@ -13,8 +13,11 @@ namespace Task5PiZZaApp
         public string Name { get; private set; }
         public string Surname { get; private set;}
 
-        public delegate void WriteToFile(string msg);
+        private object lockObject = new object();
 
+        public delegate void WriteToFile(string msg);
+        public delegate void WriteToConsole(string msg);
+        public WriteToConsole wToConsole;
         public WriteToFile wToFile;
         private Random rnd;
 
@@ -32,29 +35,24 @@ namespace Task5PiZZaApp
 
         private void GetPizza(List<Piece> listOfPieces)
         {
-            Console.ForegroundColor = ConsoleColor.Gray;
+            StringBuilder strBuild = new StringBuilder();
             int piecesOfPizzaWant = rnd.Next(1, 3);
-            Thread.CurrentThread.Name = "This thread is "+ Name;
-            Console.Write("I'm " + Name + " " + Surname + " and I want " + piecesOfPizzaWant + " pieces. " + Thread.CurrentThread.Name);
-           
+            Thread.CurrentThread.Name = "This thread is " + Name;
+            strBuild.AppendLine("I'm " + Name + " " + Surname + " and I want " + piecesOfPizzaWant + " pieces. " + Thread.CurrentThread.Name);
             try
             {
                 listOfPieces.RemoveRange(0, piecesOfPizzaWant);
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write(". After "+Name+" Pizza left: " + listOfPieces.Count);
-                Console.WriteLine();
+                strBuild.Append(". After " + Name + " Pizza left: " + listOfPieces.Count);
                 wToFile(Name + " " + Surname + " have taken " + piecesOfPizzaWant + " pieces");
             }
             catch (Exception)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(". Not enough pizza!! For " + Name);
+                strBuild.AppendLine(". Not enough pizza!! For " + Name);
                 return;
             }
-          
-            
+            wToConsole(strBuild.ToString());
         }
 
-       
+
     }
 }

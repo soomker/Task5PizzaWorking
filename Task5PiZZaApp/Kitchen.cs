@@ -17,7 +17,7 @@ namespace Task5PiZZaApp
        private Engineer eng3;
        private List<Engineer> engineers;
        private StringBuilder strBuild;
-       
+
         public Kitchen()
         {
             Pizza = new Pizza("Paperonni", 12);
@@ -29,29 +29,22 @@ namespace Task5PiZZaApp
 
             foreach (Engineer eng in engineers)
             {
-                eng.wToFile += LogToFile;
+                eng.wToFile += EatPizzaHelper.DoLog;
+                eng.wToConsole += EatPizzaHelper.WriteInConsole;
             }
         }
 
         public void StartEatPizza(ref List<Piece> piecesOfPizza)
         {
+          
             foreach (Engineer eng in engineers)
             {
                 Thread thr = new Thread(new ParameterizedThreadStart(eng.GrapPizza));
                 thr.Start(piecesOfPizza);
-                thr.Join();
             }
-            if (File.Exists("Pizza.log")) File.Delete("Pizza.log");
-            File.AppendAllText("Pizza.log", strBuild.ToString());
             
+            EatPizzaHelper.WriteToFile();
         }
 
-        private void LogToFile(string message)
-        { 
-         lock(lockObj)
-         {
-             strBuild.AppendLine(message);
-         }
-        }
     }
 }
