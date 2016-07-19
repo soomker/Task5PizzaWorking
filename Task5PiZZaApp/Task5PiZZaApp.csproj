@@ -43,10 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EatPizzaHelper.cs" />
     <Compile Include="Engineer.cs" />
-    <Compile Include="Kitchen.cs" />
-    <Compile Include="Piece.cs" />
     <Compile Include="Pizza.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

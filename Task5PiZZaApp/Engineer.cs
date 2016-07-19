@@ -13,12 +13,12 @@ namespace Task5PiZZaApp
         public string Name { get; private set; }
         public string Surname { get; private set;}
 
-        private object lockObject = new object();
+        private static string pathToLogFile;
 
-        public delegate void WriteToFile(string msg);
-        public delegate void WriteToConsole(string msg);
-        public WriteToConsole wToConsole;
-        public WriteToFile wToFile;
+        private StringBuilder strBuild = new StringBuilder();
+
+        private static StringBuilder stringBuildForFile = new StringBuilder();
+       
         private Random rnd;
 
         public Engineer(string name, string surname)
@@ -26,33 +26,54 @@ namespace Task5PiZZaApp
             Name = name;
             Surname = surname;
             rnd = new Random();
+            pathToLogFile = "Pizza.log";
         }
 
-        public void GrapPizza(object list)
+        public void GrabPizza(object count)
         {
-            GetPizza((List<Piece>)list);
+           List<object> pizzaCount = (List<object>)count;
+            GetPizza(pizzaCount);
         }
 
-        private void GetPizza(List<Piece> listOfPieces)
+        private void GetPizza(List<object> countOfPieces)
         {
-            StringBuilder strBuild = new StringBuilder();
+            strBuild.Clear();
             int piecesOfPizzaWant = rnd.Next(1, 3);
             Thread.CurrentThread.Name = "This thread is " + Name;
             strBuild.AppendLine("I'm " + Name + " " + Surname + " and I want " + piecesOfPizzaWant + " pieces. " + Thread.CurrentThread.Name);
-            try
-            {
-                listOfPieces.RemoveRange(0, piecesOfPizzaWant);
-                strBuild.Append(". After " + Name + " Pizza left: " + listOfPieces.Count);
-                wToFile(Name + " " + Surname + " have taken " + piecesOfPizzaWant + " pieces");
-            }
-            catch (Exception)
-            {
-                strBuild.AppendLine(". Not enough pizza!! For " + Name);
-                return;
-            }
-            wToConsole(strBuild.ToString());
+
+            
+             try
+             {
+                  lock (countOfPieces)
+                 {
+                    countOfPieces.RemoveRange(0, piecesOfPizzaWant);
+                 }
+                  strBuild.AppendLine(" After " + Name + " Pizza left: " + countOfPieces.Count);
+
+                 lock (stringBuildForFile)
+                 {
+                    stringBuildForFile.AppendLine(Name + " " + Surname + " have taken " + piecesOfPizzaWant + " pieces");
+                 }
+             }
+             catch (Exception)
+             {
+                lock (stringBuildForFile)
+                {
+                    strBuild.AppendLine(" Not enough pizza!! For " + Name);
+                }
+             }
+
+            Console.WriteLine(strBuild);
         }
 
+        public static void WriteLog()
+        {
+            lock (pathToLogFile)
+            {
+                File.AppendAllText(pathToLogFile, stringBuildForFile.ToString());
+            }
+        }
 
     }
 }
